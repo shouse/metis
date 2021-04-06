@@ -22,11 +22,11 @@ export default class ApplicationLayout extends React.Component {
     const loggedHeader = (
       <nav className="navbar navbar-expand navbar-custom static-top">
         <a className="navbar-brand" href="/">
-				<img src="/img/metis-logo-small.png" height="32px" alt="logo" />
-					<span className="ml-2">Metis</span>
+        <img src="/img/metis-logo-small.png" height="32px" alt="logo" />
+          <span className="ml-2">Metis</span>
         </a>
 
-				{/* Mobile */}
+        {/* Mobile */}
         <ul className="navbar-nav ml-auto mobile-nav-button">
           {/* <li className="nav-item">
             <a
@@ -50,33 +50,33 @@ export default class ApplicationLayout extends React.Component {
         </ul>
 
         <ul className="navbar-nav ml-auto desktop-nav">
-				<li className="nav-item">
+        <li className="nav-item">
             <a className="nav-link" href="/channels" data-toggle="tooltip" title="Chats">
               <span>Chats</span>
             </a>
           </li>
-					<li className="nav-item">
+          <li className="nav-item">
             <a className="nav-link" href="/invites" data-toggle="tooltip" title="Invites">
               <span>Invites</span>
             </a>
           </li>
           <li className="nav-item">
             <a className="nav-link" href="/account" data-toggle="tooltip"
-            	title={this.state.user_exists ? this.state.user.record.alias : ''}>
-							<span>Profile</span>
+              title={this.state.user_exists ? this.state.user.record.alias : ''}>
+              <span>Profile</span>
             </a>
           </li>
           <li className="nav-item">
             <a className="nav-link" href="/security" data-toggle="tooltip" title="Security">
-							<span>Security</span>
+              <span>Security</span>
             </a>
           </li>
           <li className="nav-item">
             <a className="nav-link" href="#" data-toggle="modal" data-target="#logoutModal">
-							<span>Log Out</span>
-						</a>
+              <span>Log Out</span>
+            </a>
           </li>
-					{/* TODO: Put this in the footer */}
+          {/* TODO: Put this in the footer */}
           {/* <li className="nav-item">
             <a className="nav-link" href="https://sigwo.tech/feedback" target="_blank" data-toggle="tooltip" title="Feedback">
               <i className="fas fa-fw fa-lightbulb" />
@@ -90,7 +90,7 @@ export default class ApplicationLayout extends React.Component {
       <nav className="navbar navbar-expand navbar-custom static-top">
         <div className="container-fluid">
           <a className="navbar-brand" href="/home">
-						<img src="/img/metis-logo-small.png" height="32px" alt="logo" />
+            <img src="/img/metis-logo-small.png" height="32px" alt="logo" />
             <span className="ml-2">Metis</span>
           </a>
 
@@ -126,7 +126,7 @@ export default class ApplicationLayout extends React.Component {
                 </div>
               </div> */}
               <ul className="nav flex-column">
-							<li className="nav-item">
+              <li className="nav-item">
                   <a className="nav-link" href="/channels">
                     <span>Chats</span>
                   </a>
@@ -136,7 +136,7 @@ export default class ApplicationLayout extends React.Component {
                     <span>Invites</span>
                   </a>
                 </li>
-								<li className="nav-item">
+                <li className="nav-item">
                   <a className="nav-link" href="/account">
                     <span>Profile</span>
                   </a>
@@ -170,7 +170,7 @@ export default class ApplicationLayout extends React.Component {
           {this.props.children}
         </div>
       </div>
-		);
+    );
 
     return (
       <html>
@@ -183,9 +183,9 @@ export default class ApplicationLayout extends React.Component {
             name="viewport"
             content="width=device-width, initial-scale=1, shrink-to-fit=no"
           />
-					<meta name="description" content="Metis Messenger - Metis is a fully encrypted chatting application built on Jupiter’s blockchain. We use account features and JSON formatting to bundle and military-grade encryption to secure every single message sent using Metis. Metis uniquely uses accounts for channels and builds each user their channel list that is stored in their account." />
+          <meta name="description" content="Metis Messenger - Metis is a fully encrypted chatting application built on Jupiter’s blockchain. We use account features and JSON formatting to bundle and military-grade encryption to secure every single message sent using Metis. Metis uniquely uses accounts for channels and builds each user their channel list that is stored in their account." />
 
-					<link rel="dns-prefetch" href="//fonts.googleapis.com" />
+          <link rel="dns-prefetch" href="//fonts.googleapis.com" />
 
           <link
             href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css"
@@ -210,20 +210,20 @@ export default class ApplicationLayout extends React.Component {
             href="https://fonts.googleapis.com/css?family=Lato: 300,300i,400,400i"
             rel="stylesheet"
           />
-					<link
-						href="https://fonts.googleapis.com/css?family=Poppins:100,100italic,200,200italic,300,300italic,regular,italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic&amp;subset=latin,latin-ext&amp;display=swap"
-						rel="stylesheet"
-						type="text/css"
-						media="all"
-					/>
+          <link
+            href="https://fonts.googleapis.com/css?family=Poppins:100,100italic,200,200italic,300,300italic,regular,italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic&amp;subset=latin,latin-ext&amp;display=swap"
+            rel="stylesheet"
+            type="text/css"
+            media="all"
+          />
 
           <link href="/css/sb-admin.css" rel="stylesheet" />
         </head>
         <body className="p-0">
           <span id="toastrMessages" />
           <div
-						id={this.props.data.dashboard === true ? 'logged-in' : 'logged-out'}
-						className="application-wrapper"
+            id={this.props.data.dashboard === true ? 'logged-in' : 'logged-out'}
+            className="application-wrapper"
           >
             {this.props.data.dashboard === true ? loggedHeader : unloggedHeader}
 
@@ -231,25 +231,25 @@ export default class ApplicationLayout extends React.Component {
               ? loggedWrapper
               : unloggedWrapper}
 
-						{/* {this.props.includeFooter &&
-							<footer className="footer">
-								<div className="container-fluid my-auto">
-									<div className="copyright text-center my-auto">
-										{process.env.APPNAME ? (
-											<div>
-												<div>Copyright © 2018 YourBrand</div>
-												<div className="mt-2 small">powered by Gravity</div>
-											</div>
-										) : (
-											<div>
-												<div>Copyright © 2018 Sigwo Technologies</div>
-												<div className="mt-2 small">powered by Gravity</div>
-											</div>
-										)}
-									</div>
-								</div>
-							</footer>
-						} */}
+            {/* {this.props.includeFooter &&
+              <footer className="footer">
+                <div className="container-fluid my-auto">
+                  <div className="copyright text-center my-auto">
+                    {process.env.APPNAME ? (
+                      <div>
+                        <div>Copyright © 2018 YourBrand</div>
+                        <div className="mt-2 small">powered by Gravity</div>
+                      </div>
+                    ) : (
+                      <div>
+                        <div>Copyright © 2018 Sigwo Technologies</div>
+                        <div className="mt-2 small">powered by Gravity</div>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </footer>
+            } */}
           </div>
 
           <div
