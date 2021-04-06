@@ -97,7 +97,7 @@ class SecurityOptions extends React.Component {
                 ) : null}
               {this.props.user.record.twofa_enabled === false ? (
                 <div>
-                  <p className="alert alert-primary">Not Enabled</p>
+                  <p className="alert alert-secondary">Not Enabled</p>
                   <form method="POST" action="/update_2fa_settings">
                     <input type="hidden" name="enable_2fa" value="true" />
                     <button className="btn btn-custom mx-auto" type="submit">

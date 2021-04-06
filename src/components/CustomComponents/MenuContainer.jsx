@@ -68,8 +68,7 @@ class ChannelRow extends React.Component {
   }
 
   render() {
-    const { props } = this;
-    const { state } = this;
+    const { props, state } = this;
     const channelInfo = props.parent.props.channels[props.channel];
     const rand = require("crypto").createHash('md5').update(this.state.channelData.id).digest("hex")
     const identicon = "https://www.gravatar.com/avatar/"+rand+"?s=64&d=identicon"
@@ -101,7 +100,7 @@ class ChannelRow extends React.Component {
               {/* Use this form to invite another user to this channel. Please write the
               JUP account you wish to invite below and press on the Invite button. */}
               <p>
-                To invite another user to this channel, simply enter his/her alias or JUP ID and click on "Invite".
+                To invite another user to this channel, simply enter their alias or JUP ID and click 'Invite'.
               </p>
               <div className="form-group">
                 <input className="form-control" value={state.invitationAccount} onChange={this.handleChange.bind(this, 'invitationAccount')} />
@@ -163,9 +162,10 @@ class ChannelRow extends React.Component {
           >
             <span
               className="d-inline-block text-truncate"
-              style={{ maxWidth: '140px'}}
+              style={{ maxWidth: '140px' }}
             >
-              <img src={ identicon } height="20px" alt="logo" /> {channelInfo.channel_record.name}
+              <img src={ identicon } height="20px" alt="avatar" style={{marginRight: '8px'}} />
+							{channelInfo.channel_record.name}
             </span>
           </div>
           <a
@@ -190,7 +190,7 @@ export default class MenuContainer extends React.Component {
     const self = this;
     return (
       <ul className="sidebar navbar-nav float-left channels-list" style={{ position: 'inherit' }}>
-        <div className="h4 text-light p-2">Chats</div>
+        <div className="primary-reg-24 font-secondary py-2 pl-3">Chats</div>
         {props.channels ? props.channels.map((channel, index) => (
           <ChannelRow
             parent={self}

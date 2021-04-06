@@ -38,7 +38,7 @@ class DataRow extends React.Component {
       || !params.channelpublic
       ) {
       toastr.error('Error with invite acceptance');
-      return { error: true, message: 'COuld not add user to member list of channel' }
+      return { error: true, message: 'Could not add user to member list of channel' };
     }
 
     let response;
@@ -65,18 +65,22 @@ class DataRow extends React.Component {
     axios.post('/channels/import', { data })
       .then((response) => {
         if (response.data.success) {
+          // console.log('response: ', response);
           page.props.parent.setState({
             update_submitted: false,
+            invites: page.props.parent.state.invites.filter((invite) => {
+              return invite.id === page.state.inviteData.id;
+            }),
           });
           page.addMember();
           toastr.success('Invite accepted!');
         } else {
-          toastr.error('There was an error in sending your invite');
+          toastr.error('There was an error accepting the invite.');
         }
       })
       .catch((error) => {
         console.log(error);
-        toastr.error('There was an error');
+        toastr.error('There was an error accepting the invite. Please try again later.');
       });
   }
 
@@ -131,8 +135,8 @@ class DataRow extends React.Component {
     );
 
     const TableBody = (
-      <div style={{ border: '2px solid black', backgroundColor: '#26313d', borderRadius: '0.25rem', padding: '14px', marginTop: '20px', marginBottom: '20px', marginLeft: 'auto', marginRight: 'auto' }}>
-        <div style={{ flexGrow: '1' }}>
+      <div className="invite-table-row card mx-auto mb-3">
+        <div className="flex-grow-1 card-body">
           <h5>
             You have been invited to join '{inviteInfo.channel_record.name}'
           </h5>
@@ -142,7 +146,7 @@ class DataRow extends React.Component {
           <div>
           <span style={{ fontWeight: 'bold' }}>Date:</span> {this.state.date}
           </div>
-          <div style={{ textAlign: 'right' }}>
+          <div className="text-right">
             <button
               type="button"
               className="btn btn-custom"
@@ -171,12 +175,12 @@ class InvitesComponent extends React.Component {
     this.state = {
       name: '',
       invites: [],
+      loading: true,
       submitted: false,
       update_submitted: false,
     };
     this.handleChange = this.handleChange.bind(this);
   }
-
 
   componentDidMount() {
     this.loadInvites();
@@ -184,20 +188,29 @@ class InvitesComponent extends React.Component {
 
   loadInvites() {
     const page = this;
+    page.setState({
+      loading: true,
+    });
 
     axios.get('/channels/invites')
       .then((response) => {
+        let state = {};
         if (response.data.records) {
-          page.setState({
-            invites: response.data.records,
-          });
+          state.invites = response.data.records;
         } else {
-          toastr.error('No invites');
+          toastr.info('No invites found');
         }
+        page.setState({
+          ...state,
+          loading: false,
+        });
       })
       .catch((error) => {
         console.log(error);
-        toastr.error('There was an error');
+        toastr.error('There was an error loading your invites. Please try again later.');
+        page.setState({
+          loading: false,
+        });
       });
   }
 
@@ -222,13 +235,27 @@ class InvitesComponent extends React.Component {
       )
     );
 
+    const NoRecords = (
+      <div className="mt-5">
+        <p className="primary-reg-16 text-center">You don't have any invites</p>
+      </div>
+    );
+
+    const loading = <div style={{
+      textAlign: 'center',
+      paddingTop: '25vh',
+      fontSize: '55px',
+      overflow: 'hidden',
+    }}><i className="fa fa-spinner fa-pulse"></i></div>;
+
     return (
-        <div>
-          <h1 className="page-title">Invites</h1>
-          <div className="container">
-            {RecordList}
-          </div>
+      <div>
+        <h1 className="page-title">Invites</h1>
+        <div className="container">
+          {self.state.loading ? loading : RecordList}
+          {!self.state.loading && self.state.invites.length === 0 ? NoRecords : null}
         </div>
+      </div>
     );
   }
 }
@@ -240,10 +267,10 @@ const InvitesExport = () => {
 
     render(
       <InvitesComponent
-      user={props.user}
-      validation={props.validation}
-      public_key={props.public_key}
-      accessData = {props.accessData}
+        user={props.user}
+        validation={props.validation}
+        public_key={props.public_key}
+        accessData = {props.accessData}
       />,
       document.getElementById('invitesComponent'),
     );

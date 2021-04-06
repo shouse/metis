@@ -4,14 +4,18 @@
   display: none;
 }
 
+:focus {
+  outline: none !important;
+}
+
 html {
   position: relative;
   min-height: 100%;
 }
 
 body {
-  height: 100%;
-
+	height: 100%;
+	font-family: 'Lato',Helvetica,Arial,Lucida,sans-serif;
 }
 
 th {
@@ -53,13 +57,13 @@ button, button.close, .btn-link {
 a,
 a:link,
 a:visited {
-  color: blue;
+  color: $custom-primary;
   outline: 0;
   border: 0;
 
   &:hover,
   &:active {
-    color: darkblue;
+    color: darken($custom-primary, 3);
     text-decoration: none;
   }
 }

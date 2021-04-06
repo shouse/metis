@@ -1,22 +1,31 @@
 .navbar-custom {
-  background-color: $custom-primary;
-  color: $white;
+	height: 60px;
+	background-color: $white;
+	@include box-shadow(0px 4px 4px rgba(51, 51, 51, 0.04),
+    0px 4px 16px rgba(51, 51, 51, 0.08));
+	color: $black;
+
   .navbar-brand {
-    color: $white;
+		color: $black;
+
     &:active,
     &:focus,
     &:hover {
-      color: $white;
+      color: $black;
     }
-  }
+	}
+
   a {
-    color: fade-out($white, 0.2);
+		color: fade-out($black, 0.2);
+		font-family: 'Poppins',Helvetica,Arial,Lucida,sans-serif;
+
     &:active,
     &:focus,
     &:hover {
-      color: fade-out($white, 0.4);
+      color: fade-out($black, 0.4);
     }
-  }
+	}
+
   a.dropdown-item {
     // new addition
     padding: .25rem 1.25rem;
@@ -30,25 +39,13 @@
   }
 }
 
-.dropdown-alias-card {
-  margin: .25rem .75rem;
-  padding: .25rem .75rem;
-  background: fade-out($custom-primary, 0.5);
-  color: white;
-  border-radius: $border-radius;
-}
-
 .navbar-nav {
   .form-inline .input-group {
     width: 100%;
   }
 
   .nav-item {
-    &.active {
-      .nav-link {
-        color: $white;
-      }
-    }
+
     &.dropdown {
       .dropdown-toggle {
         &::after {
@@ -72,12 +69,31 @@
           display: none;
         }
       }
-    }
+		}
+		.nav-button {
+			position: relative;
+			height: 36px;
+			line-height: 36px;
+			display: inline-block;
+			vertical-align: middle;
+			background-color: $custom-primary;
+			@include border-radius($border-radius-full);
+			padding: 0 32px;
+			text-align: center;
+			color: $white;
+			font-family: 'Poppins',Helvetica,Arial,Lucida,sans-serif;
+
+			&.secondary {
+				background-color: $white;
+				color: $custom-primary;
+			}
+		}
     .nav-link {
-      &:focus {
-        // remove outline for Safari and Firefox
-        outline: none;
-      }
+			font-family: 'Poppins',Helvetica,Arial,Lucida,sans-serif;
+      // &:focus {
+      //   // remove outline for Safari and Firefox
+      //   outline: none;
+      // }
       .badge {
         position: absolute;
         margin-left: 0.75rem;
@@ -105,7 +121,9 @@
   // Transparent background
   //background-color: rgba(0, 0, 0, 0.4);
   // static color background
-  background-color: $gray-700;
+	background-color: $gray-100;
+	@include box-shadow(0px 4px 4px rgba(51, 51, 51, 0.04),
+    0px 4px 16px rgba(51, 51, 51, 0.08));
   min-height: calc(100vh - #{$navbar-base-height});
   @include sidebar-icons;
   .nav-item {
@@ -166,34 +184,29 @@
   z-index: 1000;
   position: absolute;
   width: 100%;
-  //max-width: 300px;
-  background: $gray-700;
+  background: $gray-100;
   //padding: 20px 0 20px 0;
   .nav-item {
     .nav-link {
-      padding-left: 10px;
-      color: fade-out($white, 0.2);
+      padding-left: 16px;
+      color: fade-out($custom-primary, 0.2);
       &:active,
       &:focus,
       &:hover {
-        color: fade-out($white, 0.2);
-        background-color: $gray-600;
+        color: fade-out($custom-primary, 0.2);
+        background-color: $gray-200;
       }
     }
   }
   a {
-    color: fade-out($white, 0.2);
+    color: fade-out($custom-primary, 0.2);
     &:active,
     &:focus,
     &:hover {
-      color: fade-out($white, 0.4);
+      color: fade-out($custom-primary, 0.4);
     }
   }
 }
-
-// .channels-list-wrapper {
-//   padding-top: $navbar-base-height;
-// }
 
 .channels-modal {
   display: block;
@@ -216,9 +229,9 @@
 }
 
 .mobile-channels-list {
-  border-radius: $border-radius;
-  background-color: $gray-700;
-  
+	@include border-radius($border-radius);
+  background-color: $gray-300;
+
   .channels-item {
     padding: 14px 9px;
     background: transparent;
@@ -289,28 +302,28 @@
     // border-radius: $border-radius;
     border-top-left-radius: $border-radius;
     border-bottom-left-radius: $border-radius;
-    color: fade-out($white, 0.4);
-    background-color: fade-out($gray-600, 0.6);
+    color: $black;
+    background-color: fade-out($gray-300, 0.6);
     padding: 6px 10px 6px 10px;
     margin-bottom: 10px;
     margin-left: 6px;
 
     &:hover {
-      color: fade-out($white, 0.2);
-      background-color: fade-out($gray-600, 0.2);
+      background-color: fade-out($gray-300, 0.2);
     }
   }
   .new-channels-invite {
     width: 10%;
-    float: left;
-    color: fade-out($white, 0.4);
-    background-color: fade-out($gray-600, 0.6);
+		float: left;
+		color: $black;
+    background-color: fade-out($gray-300, 0.6);
     border-top-right-radius: $border-radius;
     border-bottom-right-radius: $border-radius;
-    padding: 12px 22px 12px 10px;
+		padding: 12px 22px 12px 10px;
+
     &:hover {
-      color: fade-out($white, 0.2);
-      background-color: fade-out($gray-600, 0.2);
+      color: $white;
+      background-color: fade-out($custom-primary, 0.2);
     }
   }
 }
@@ -374,7 +387,7 @@
   margin: auto;
   background-clip: padding-box;
   border: 1px solid rgba(0, 0, 0, 0.2);
-  border-radius: $border-radius;
+  @include border-radius($border-radius);
 }
 
 .add-user-modal-body {
@@ -403,7 +416,7 @@
 }
 
 .mobile-nav {
-  display: block;
+	display: block;
 
   @media (min-width: 768px) {
     display: none;

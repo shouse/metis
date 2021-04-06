@@ -76,7 +76,7 @@ class TwoFAForm extends React.Component {
       .catch((error) => {
         console.log(error);
         self.setState({
-          response_message: 'There was an error',
+          response_message: 'There was an error starting Two-Factor Authentication',
         });
       });
   }
@@ -86,7 +86,7 @@ class TwoFAForm extends React.Component {
       <div>
         <div className="panel panel-primary">
           <div className="form-group">
-            <div className="">
+            <div className="container">
               <p>
                 You have indicated you would like to add an extra layer of
                 security to your account via Two-Factor Authentication. If you
@@ -98,19 +98,21 @@ class TwoFAForm extends React.Component {
               </p>
 
               <br />
-              <button
-                className="btn btn-custom"
-                onClick={this.start2fa.bind(this)}
-              >
-                Enable Two-Factor Authentication
-              </button>
-              <form method="POST" action="/update_2fa_settings">
-                <input type="hidden" name="enable_2fa" value={false} />
-                <br />
-                <button className="btn btn-danger" type="submit">
-                  Cancel
-                </button>
-              </form>
+							<div className="d-flex align-items-center justify-content-center">
+								<button
+									className="btn btn-custom mr-2"
+									onClick={this.start2fa.bind(this)}
+								>
+									Enable Two-Factor Authentication
+								</button>
+								<form className="mb-0" method="POST" action="/update_2fa_settings">
+									<input type="hidden" name="enable_2fa" value={false} />
+									{/* <br /> */}
+									<button className="btn btn-secondary" type="submit">
+										Cancel
+									</button>
+								</form>
+							</div>
             </div>
           </div>
         </div>

@@ -15,12 +15,13 @@ class ChannelsComponent extends React.Component {
       channels: [],
       submitted: false,
       update_submitted: false,
-      loading: true,
+			loading: true,
+			checking: false,
       inviteUser: false,
       invitationAccount: '',
     };
     this.handleChange = this.handleChange.bind(this);
-    this.createRecord = this.createRecord.bind(this);
+    this.createChat = this.createChat.bind(this);
   }
 
   componentDidMount() {
@@ -55,17 +56,22 @@ class ChannelsComponent extends React.Component {
           });
           page.monitorData();
         } else {
-          toastr.error('No record table in database.');
+          toastr.info('No channels found.');
         }
       })
       .catch((error) => {
         console.log(error);
-        toastr.error('There was an error');
+        toastr.error('Error occurred while loading your channels. Please try again later.');
       });
   }
 
   checkUpdates() {
-    const self = this;
+		if (this.state.checking) {
+			console.log('Already checking for updates.');
+			return;
+		}
+		this.setState({ checking: true });
+		const self = this;
     const currentData = JSON.stringify(this.state.channels);
     const config = {
       headers: {
@@ -73,7 +79,7 @@ class ChannelsComponent extends React.Component {
         user_public_key: this.props.public_key,
         accessData: this.props.accessData,
       },
-    };
+		};
 
     axios.get(`/api/users/${this.props.user.id}/channels`, config)
       .then((response) => {
@@ -84,11 +90,13 @@ class ChannelsComponent extends React.Component {
           if (currentData !== JSON.stringify(responseData)) {
             self.resetRecords(responseData);
           }
-        }
+				}
+				this.setState({ checking: false });
       })
       .catch((error) => {
         console.log(error);
-        toastr.error("Could not connect to server. Unable to check and update page's records.");
+				toastr.info('Error occurred while verifying channel updates. Please try again later.');
+				this.setState({ checking: false });
       });
   }
 
@@ -96,10 +104,10 @@ class ChannelsComponent extends React.Component {
     const self = this;
 
     setInterval(() => {
-      if (!(self.state.submitted || self.state.update_submitted)) {
+      if (!(self.state.submitted || self.state.update_submitted || self.state.checking)) {
         self.checkUpdates();
       }
-    }, 3000);
+    }, 10 * 1000); // 10 secs
   }
 
 
@@ -115,8 +123,12 @@ class ChannelsComponent extends React.Component {
     }
   }
 
-  createRecord(event) {
-    event.preventDefault();
+  createChat(event) {
+		event.preventDefault();
+		if (!this.state.name) {
+			toastr.info('You must provide a valid name for the chat');
+			return;
+		}
     this.setState({
       submitted: true,
     });
@@ -143,19 +155,21 @@ class ChannelsComponent extends React.Component {
             name: '',
             password: '',
             submitted: false,
-          });
+					});
+					toastr.success('Chat created');
+					this.checkUpdates();
         } else {
           // console.log(response.data);
           // toastr.error(response.data.message);
-          response.data.validations.messages.map((message) => {
-            toastr.error(message);
-            return null;
-          });
+					response.data.validations.messages
+						.forEach((message) => {
+							toastr.error(message);
+						});
         }
       })
       .catch((error) => {
         console.log(error);
-        toastr.error('There was an error');
+        toastr.error('There was an error creating your chat. Please try again later.');
       });
   }
 
@@ -178,12 +192,12 @@ class ChannelsComponent extends React.Component {
 
           toastr.success('Invite sent!');
         } else {
-          toastr.error('There was an error in sending your invite.')
+          toastr.error('There was an error sending your invite. Please try again later.');
         }
       })
       .catch((error) => {
         console.log(error);
-        toastr.error('There was an error');
+        toastr.error('There was an error sending your invite. Please try again later.');
       });
   }
 
@@ -227,11 +241,11 @@ class ChannelsComponent extends React.Component {
           Add New Chat
         </div>
         <div className="card-body">
-          <div className="form-group">
+          <div className="form-group my-4">
             <input placeholder="Enter new chat name here..." value={state.name } className="form-control" onChange={this.handleChange.bind(this, 'name')} />
           </div>
-          <div className="text-center">
-            <button className="btn btn-custom" disabled={state.submitted} onClick={this.createRecord.bind(this)}><i className="glyphicon glyphicon-edit"></i>  {state.submitted ? 'Adding Chat...' : 'Add Chat'}</button>
+          <div className="text-center mt-3">
+            <button className="btn btn-custom" disabled={state.submitted} onClick={this.createChat.bind(this)}>{state.submitted ? 'Adding Chat...' : 'Add Chat'}</button>
           </div>
         </div>
       </div>);
@@ -243,23 +257,15 @@ class ChannelsComponent extends React.Component {
       overflow: 'hidden',
     }}><i className="fa fa-spinner fa-pulse"></i></div>;
 
-    const content = <div>
-      <div className="page-title">Chats</div>
-        <div className="row">
-          <div className="mx-auto">
-            <button type="button" className="btn btn-custom channels-modal" data-toggle="modal" data-target="#channelsModal">
-              View Chats
-            </button>
-          </div>
-        </div>
-        { state.channels.length > 0 || this.state.channelTableExist
-          ? newChannelForm
-          : <div className="card card-register mx-auto my-5">
-            <div className="card-body">
-              <div className="text-center alert alert-warning m-0">Unable to create chats yet, confirming account details in the blockchain.</div>
-            </div>
-          </div>
-        }
+    const content = <div style={{overflow: 'auto'}}>
+			{ state.channels.length > 0 || this.state.channelTableExist
+				? newChannelForm
+				: <div className="card card-register mx-auto my-5">
+					<div className="card-body">
+						<div className="text-center alert alert-warning m-0">Unable to create chats yet, confirming account details in the blockchain.</div>
+					</div>
+				</div>
+			}
     </div>;
 
     return (

@@ -74,7 +74,7 @@ class Gravity {
       }
     }
 
-    return tableData[table];
+    return tableData ? tableData[table] : {};
   }
 
   showTables(returnType = 'app') {

@@ -1,0 +1,209 @@
+
+
+// Common font sizes:
+
+$font-size-72: 72px;
+$font-size-56: 56px;
+$font-size-44: 44px;
+$font-size-40: 40px;
+$font-size-36: 36px;
+$font-size-32: 32px;
+$font-size-28: 28px;
+$font-size-24: 24px;
+$font-size-20: 20px;
+$font-size-18: 18px;
+$font-size-16: 16px;
+$font-size-14: 14px;
+$font-size-12: 12px;
+
+// Common font classes
+.primary-reg-72 {
+  line-height: 80px;
+  font-size: $font-size-72;
+  font-weight: 400;
+}
+
+.primary-reg-56 {
+  line-height: 80px;
+  font-size: $font-size-56;
+  font-weight: 400;
+}
+
+.primary-reg-44 {
+  line-height: 54px;
+  font-size: $font-size-44;
+  font-weight: 400;
+}
+
+.primary-reg-36 {
+  line-height: 44px;
+  font-size: $font-size-36;
+  font-weight: 400;
+}
+
+.primary-reg-32 {
+  line-height: 40px;
+  font-size: $font-size-32;
+  font-weight: 400;
+}
+
+.primary-reg-28 {
+  line-height: 32px;
+  font-size: $font-size-28;
+  font-weight: 400;
+}
+
+.primary-reg-24 {
+  line-height: 30px;
+  font-size: $font-size-24;
+  font-weight: 400;
+}
+
+.primary-reg-20 {
+  line-height: 30px;
+  font-size: $font-size-20;
+  font-weight: 400;
+}
+
+.primary-reg-18 {
+  line-height: 24px;
+  font-size: $font-size-18;
+  font-weight: 400;
+}
+
+.primary-reg-16 {
+  line-height: 20px;
+  font-size: $font-size-16;
+  font-weight: 400;
+}
+
+.primary-reg-14 {
+  line-height: 18px;
+  font-size: $font-size-14;
+  font-weight: 400;
+}
+
+.primary-reg-12 {
+  line-height: 14px;
+  font-size: $font-size-12;
+  font-weight: 400;
+}
+
+// Font family
+.font-primary {
+	font-family: 'Lato',Helvetica,Arial,Lucida,sans-serif;
+}
+
+.font-secondary {
+	font-family: 'Poppins',Helvetica,Arial,Lucida,sans-serif;
+}
+
+
+// Font weight
+.text-light {
+  font-weight: 300 !important;
+}
+
+.text-reg {
+  font-weight: 400 !important;
+}
+
+.text-bold {
+  font-weight: 700 !important;
+}
+
+// -- Colors
+
+// Grey scale text
+// .text-color-gs1 {
+//   color: $gs-1;
+// }
+
+// .text-color-gs2 {
+//   color: $gs-2;
+// }
+
+// .text-color-gs3 {
+//   color: $gs-3;
+// }
+
+// .text-color-gs4 {
+//   color: $gs-4;
+// }
+
+// .text-color-gs5 {
+//   color: $gs-5;
+// }
+
+// .text-color-gs6 {
+//   color: $gs-6;
+// }
+
+
+// Responsive
+
+// @include media-breakpoint-down(lg) {}
+
+// @include media-breakpoint-down(sm) {}
+
+// @include media-breakpoint-down(md) {
+//   .primary-reg-72 {
+//     line-height: 74px;
+//     font-size: 66px;
+//     font-weight: 400;
+//   }
+
+//   .primary-reg-44 {
+//     line-height: 50px;
+//     font-size: 40px;
+//     font-weight: 400;
+//   }
+
+//   .primary-reg-36 {
+//     line-height: 40px;
+//     font-size: 32px;
+//     font-weight: 400;
+//   }
+
+//   .primary-reg-32 {
+//     line-height: 36px;
+//     font-size: 28px;
+//     font-weight: 400;
+//   }
+
+//   .primary-reg-28 {
+//     line-height: 28px;
+//     font-size: 24px;
+//     font-weight: 400;
+//   }
+
+//   .primary-reg-24 {
+//     line-height: 26px;
+//     font-size: 20px;
+//     font-weight: 400;
+//   }
+
+//   .primary-reg-20 {
+//     line-height: 24px;
+//     font-size: $font-size-18;
+//     font-weight: 400;
+//   }
+
+//   .primary-reg-18 {
+//     line-height: 20px;
+//     font-size: $font-size-16;
+//     font-weight: 400;
+//   }
+
+//   .primary-reg-16 {
+//     line-height: 18px;
+//     font-size: $font-size-14;
+//     font-weight: 400;
+//   }
+
+//   .primary-reg-14 {
+//     line-height: 16px;
+//     font-size: 12px;
+//     font-weight: 400;
+//   }
+// }

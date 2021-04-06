@@ -43,8 +43,16 @@ export class LoginForm extends React.Component {
   logIn(event) {
     event.preventDefault();
     const page = this;
-    // toastr.info('Logging in now!');
-    console.log('Authentication submitted!');
+    if (!this.state.jup_passphrase) {
+      toastr.warning('Please provide your passphrase.');
+      return;
+    }
+    if (!this.state.encryptionPassword) {
+      toastr.warning('Please provide your encryption password.');
+      return;
+    }
+
+    console.log('Attempting authentication...');
 
     axios
       .post('/get_jupiter_account', {
@@ -52,6 +60,7 @@ export class LoginForm extends React.Component {
       })
       .then((response) => {
         if (response.data.success === true) {
+          console.log('Successfully authenticated!');
           page.setState({
             confirmation_page: true,
             account: response.data.account,
@@ -59,11 +68,12 @@ export class LoginForm extends React.Component {
             public_key: response.data.public_key,
           });
         } else {
+          console.log('Failed to authenticate: ', response.data.message);
           toastr.error(response.data.message);
         }
       })
       .catch((error) => {
-        console.log(error);
+        console.log('Error logging in to Metis: ', error);
         toastr.error('There was an error in verifying the passphrase with the blockchain.');
       });
   }
@@ -90,7 +100,7 @@ export class LoginForm extends React.Component {
           value={this.state.jup_account_id}
         />
 
-        <div className="form-group text-center">
+        <div className="form-group text-center d-inline-block mx-auto w-100 mt-4">
           <button type="submit" className="btn btn-custom">
             Continue
           </button>
@@ -133,6 +143,8 @@ export class LoginForm extends React.Component {
           >
             Log In
           </button>
+
+          <div className="text-center mt-4">Don't have an account? <a href="/signup" className="btn-link ml-1">Sign Up</a></div>
         </div>
       </form>
     );
@@ -147,7 +159,6 @@ export class LoginForm extends React.Component {
             {this.state.confirmation_page === true ? confirmationPage : loginForm}
           </div>
         </div>
-        <div className="d-block d-lg-none text-center mt-3">Sign up for an account <a href="/signup">here</a>.</div>
       </div>
     );
   }

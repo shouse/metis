@@ -22,10 +22,10 @@ class DataRow extends React.Component {
     const { props } = this;
     const record = props.parent.state.messages[props.message];
     const { data } = record;
-    const rand = require("crypto").createHash('md5').update(props.user.record.alias).digest("hex")
-    const oRand = require("crypto").createHash('md5').update(data.name).digest("hex")
-    const identicon = "https://www.gravatar.com/avatar/"+rand+"?s=64&d=identicon"
-    const oIdenticon = "https://www.gravatar.com/avatar/"+oRand+"?s=64&d=identicon"
+    const rand = require("crypto").createHash('md5').update(props.user.record.alias).digest("hex");
+    const oRand = require("crypto").createHash('md5').update(data.name).digest("hex");
+    const identicon = "https://www.gravatar.com/avatar/"+rand+"?s=64&d=identicon";
+    const oIdenticon = "https://www.gravatar.com/avatar/"+oRand+"?s=64&d=identicon";
 
     const name = data.name === `${props.user.record.alias}`
       || data.name === `${props.user.record.firstname} ${props.user.record.lastname}`
@@ -34,30 +34,34 @@ class DataRow extends React.Component {
     const date = (new Date(record.date)).toLocaleString();
 
     const readOnlyLeft = (
-      <div className="card-plain text-left message d-block float-left my-2 w-100">
-        <div className="card-body p-2">
-          <div className="bg-dark rounded-circle float-left mr-2">
-            <img src={oIdenticon} height="40px" alt="logo" />
-          </div>
-          <div id="incoming_message" className="ml-5 rounded">
-            <div style={{ fontWeight: '600' }}>{name}</div>
-            <div style={{ width: '60%' }}>{data.message}</div>
-            <div className="small" style={{ color: 'grey' }}>{date}</div>
+      <div className="message-row">
+        <div className="card-plain card-message-incoming message-card text-left message d-inline-block float-left my-2 pr-4">
+          <div className="card-body p-2">
+            <div className="bg-dark rounded-circle o-hidden float-left mr-2">
+              <img src={oIdenticon} height="40px" alt="logo" />
+            </div>
+            <div id="incoming_message" className="ml-5 rounded">
+              <div style={{ fontWeight: '600', color: 'darkgrey' }}>{name}</div>
+              <div className="my-2" style={{ width: '60%' }}>{data.message}</div>
+              <div className="small mt-1" style={{ color: 'darkgrey' }}>{date}</div>
+            </div>
           </div>
         </div>
       </div>
     );
 
     const readOnlyRight = (
-      <div className="card-plain text-right message d-block float-right my-2 w-100">
-        <div className="card-body p-2">
-          <div className="bg-dark rounded-circle float-right ml-2">
-            <img src={identicon} height="40px" alt="logo" />
-          </div>
-          <div id="incoming_message" className="mr-5 p-2 rounded">
-            <div style={{ fontWeight: '600' }}><strong>You</strong></div>
-            <div style={{ width: '-60%' }}>{data.message}</div>
-            <div className="small" style={{ color: 'grey' }}>{date}</div>
+      <div className="message-row">
+        <div className="card-plain card-message-outgoing message-card text-right message d-inline-block float-right my-2 pl-4">
+          <div className="card-body p-2">
+            <div className="bg-dark rounded-circle o-hidden float-right ml-2">
+              <img src={identicon} height="40px" alt="logo" />
+            </div>
+            <div id="incoming_message" className="mr-5 p-2 rounded">
+              <div style={{ fontWeight: '600', color: 'lightgrey' }}><strong>You</strong></div>
+              <div className="my-2" style={{ width: '-60%' }}>{data.message}</div>
+              <div className="small mt-1" style={{ color: 'lightgrey' }}>{date}</div>
+            </div>
           </div>
         </div>
       </div>
@@ -89,11 +93,12 @@ class ConvosComponent extends React.Component {
       queryScope: 'all',
       transactionIds: [],
       firstIndex: 0,
-      loading: true,
+			loadingChannels: true,
+			loadingMessages: true,
       sideMenuOpen: true,
     };
     this.handleChange = this.handleChange.bind(this);
-    this.createRecord = this.createRecord.bind(this);
+    this.createMessage = this.createMessage.bind(this);
   }
 
   componentDidMount() {
@@ -232,7 +237,7 @@ class ConvosComponent extends React.Component {
               page.setState({
                 messages: response.data.messages,
                 queryScope: 'unconfirmed',
-                loading: false,
+                loadingMessages: false,
               });
               page.scrollToBottom();
             }
@@ -243,7 +248,8 @@ class ConvosComponent extends React.Component {
             }
           }
           page.setState({
-            waitingForData: false,
+						waitingForData: false,
+						loadingMessages: false,
           }, () => {
             if (!page.state.monitoring) {
               page.setState({
@@ -255,14 +261,15 @@ class ConvosComponent extends React.Component {
           });
         } else {
           page.setState({
-            waitingForData: false,
+						waitingForData: false,
+						loadingMessages: false,
           });
           // toastr.error('No record history');
         }
       })
       .catch((error) => {
         console.log(error);
-        toastr.error('There was an error');
+        toastr.error('There was an error loading your messages.');
       });
   }
 
@@ -282,7 +289,7 @@ class ConvosComponent extends React.Component {
         if (response.data.success) {
           page.setState({
             channels: response.data.channels,
-            loading: false,
+            loadingChannels: false,
           });
           // page.monitorData();
           for (let x = 0; x < response.data.channels.length; x += 1) {
@@ -298,12 +305,12 @@ class ConvosComponent extends React.Component {
             }
           }
         } else {
-          toastr.error('No record history');
+          toastr.info('No record history');
         }
       })
       .catch((error) => {
         console.log(error);
-        toastr.error('There was an error');
+        toastr.error('There was an error loading your messages.');
       });
   }
 
@@ -358,7 +365,7 @@ class ConvosComponent extends React.Component {
     }
   }
 
-  createRecord(event) {
+  createMessage(event) {
     event.preventDefault();
     const { props } = this;
     const { state } = this;
@@ -394,20 +401,20 @@ class ConvosComponent extends React.Component {
             });
             toastr.success('Message sent');
           } else if (response.data.validations) {
-            response.data.validations.messages.map((message) => {
-              toastr.error(message);
-              return null;
-            });
+            response.data.validations.messages
+              .forEach((message) => {
+                toastr.error(message);
+              });
           } else {
-            response.data.messages.map((message) => {
-              toastr.error(message);
-              return null;
-            });
+            response.data.messages
+              .forEach((message) => {
+                toastr.error(message);
+              });
           }
         })
         .catch((error) => {
           console.log(error);
-          toastr.error('There was an error');
+          toastr.error('There was an error sending your message.');
         });
     } else if (record.message && record.message.length > maxMessageLength) {
       toastr.error(`Message exceeds limit (${maxMessageLength} characters)`);
@@ -444,6 +451,8 @@ class ConvosComponent extends React.Component {
         members,
         aliases,
       }, async () => {
+        // TODO: The user's aliases who created the chat should be added when the
+        // document was created. This should not be done once we load the members list for the first time
         console.log(`Your aliases are ${state.aliases}`);
         const { alias } = props.user.record;
         if (!self.state.members.includes(alias) && !self.state.aliases.includes(alias)) {
@@ -494,11 +503,19 @@ class ConvosComponent extends React.Component {
           public_key={self.props.public_key}
           key={`row${(channel.signature)}`}
         />))
-    );
+		);
+
+		const noRecordList = (
+			<div className="container mx-auto text-center mt-4">
+				<p className="primary-reg-16">There are no messages yet in this channel.</p>
+				<p className="primary-reg-14">Get started by sending your first message below.</p>
+			</div>
+		);
 
     const loading = (
       <div style={{
-        textAlign: 'center', marginTop: '25vh', fontSize: '55px', overflow: 'hidden',
+				textAlign: 'center', marginTop: '25vh',
+				fontSize: '55px', overflow: 'hidden', color: 'black'
       }}
       >
         <i className="fa fa-spinner fa-pulse" />
@@ -538,54 +555,52 @@ class ConvosComponent extends React.Component {
         {state.sideMenuOpen ? <MenuContainer channels={state.channels} /> : null}
         <div className="convo-wrapper">
           <div className="convo-header">
-            <div className="convo-header-title">
-              <div className data-toggle="tooltip" title="Click for member list">
-                <a href="#" data-toggle="modal" data-target="#memberListModal">
-                  {/* Members */}<span>{Channel.name}</span>
-                </a>
-                {memberModal}
+            <div className="convo-header-title pl-3">
+              <span>{Channel.name}</span>
+            </div>
+
+            {/* Action Items */}
+            <div className="d-flex align-items-center justify-content-between pl-3 pr-2">
+              <div className="d-flex align-items-center">
+                <div className="convo-mobile-modal-button mr-2">
+                  <a
+                    href="#"
+                    data-toggle="modal"
+                    data-target="#channelsModal"
+                  >
+                    All Chats
+                  </a>
+                </div>
+                <div className="" data-toggle="tooltip" title="Members">
+                  <a href="#" data-toggle="modal" data-target="#memberListModal">
+                    Members
+                  </a>
+                  {memberModal}
+                </div>
               </div>
-            </div>
-            {/* <div className="convo-header-nav">
-              <div className="convo-sidebar-toggle">
-                <button type="button" className="btn btn-link" onClick={this.toggleSideMenu}>
-                  {state.sideMenuOpen ? <i className="fas fa-chevron-circle-left" /> : <i className="fas fa-chevron-circle-right" />}
-                </button>
-              </div> */}
-              <div className="convo-mobile-modal-button">
-                {/* <button className="btn btn-custom btn-sm"
-                  data-toggle="modal" data-target="#channelsModal">
-                  Channels
-                </button> */}
-                <a
-                  href="#"
-                  data-toggle="modal"
-                  data-target="#channelsModal"
-                >
-                  Chats
-                </a>
-              {/* </div> */}
-            </div>
-          </div>
-          <div className="convo-messages-outer container">
-            <div className="convo-messages-inner" id="messageList" style={{ color: "#f0f0f0"}}>
               <div className="convo-load-button text-right">
                 <button
                   type="button"
                   className="btn btn-secondary btn-sm"
                   disabled={state.waitingForOldData}
                   onClick={this.getOlderMessages.bind(this)}>
-                  {state.waitingForOldData ? 'Loading messages' : 'Load older messages'}
+                  {state.waitingForOldData ? 'Loading messages...' : 'Load older messages'}
                 </button>
               </div>
+            </div>
+          </div>
+          <div className="convo-messages-outer container-fluid">
+						{/* style={{ color: "#f0f0f0"}} */}
+            <div className="convo-messages-inner" id="messageList">
               <div className="convo-messages-content">
-                {recordList}
+                {state.loadingMessages ? loading : recordList}
+								{!state.loadingMessages && state.messages.length === 0 ? noRecordList : null}
               </div>
               <div
                 style={{ float: 'left', clear: 'both', color: '#f0f0f0' }}
                 ref={(el) => { this.messageEnd = el; }}
               />
-            </div>   
+            </div>
           </div>
           <div className="convo-input-outer">
 
@@ -604,9 +619,10 @@ class ConvosComponent extends React.Component {
                   type="submit" style={{ width: "80px"}}
                   className="btn btn-custom"
                   disabled={state.submitted}
-                  onClick={this.createRecord.bind(this)}
+                  onClick={this.createMessage.bind(this)}
                 >
-                ✔ <p className="" style={{color: 'grey'}}>{`${state.message.length}/${maxMessageLength}`}</p>
+                  <i className="fa fa-paper-plane" style={{'line-height': '36px'}}></i>
+                  <p className="" style={{color: 'grey'}}>{`${state.message.length}/${maxMessageLength}`}</p>
                 </button>
               </form>
             </div>
@@ -617,7 +633,7 @@ class ConvosComponent extends React.Component {
     );
 
     return (
-      state.loading ? loading : content
+      state.loadingChannels ? loading : content
     );
   }
 }

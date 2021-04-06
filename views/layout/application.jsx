@@ -1,6 +1,5 @@
 import React from 'react';
-import { gravity } from '../../config/gravity';
-import { thisExpression } from 'babel-types';
+// import { gravity } from '../../config/gravity';
 
 export default class ApplicationLayout extends React.Component {
   constructor(props) {
@@ -12,22 +11,24 @@ export default class ApplicationLayout extends React.Component {
   }
 
   render() {
-    const linksList = (
-      <div>
-        <li className="nav-item"><a className="nav-link" href="/channels"><i className="fas fa-fw fa-file" />{' '}<span>Chats</span></a></li>
-        <li className="nav-item"><a className="nav-link" href="/invites"><i className="fas fa-fw fa-file" />{' '}<span>Invites</span></a></li>
-{false && 'Generated plop links go here'}
-      </div>
-    );
+//     const linksList = (
+//       <div>
+//         <li className="nav-item"><a className="nav-link" href="/channels"><i className="fas fa-fw fa-file" />{' '}<span>Chats</span></a></li>
+//         <li className="nav-item"><a className="nav-link" href="/invites"><i className="fas fa-fw fa-file" />{' '}<span>Invites</span></a></li>
+// {false && 'Generated plop links go here'}
+//       </div>
+//     );
 
     const loggedHeader = (
       <nav className="navbar navbar-expand navbar-custom static-top">
         <a className="navbar-brand" href="/">
-          <span>Metis - v{gravity.version}</span>
+				<img src="/img/metis-logo-small.png" height="32px" alt="logo" />
+					<span className="ml-2">Metis</span>
         </a>
 
+				{/* Mobile */}
         <ul className="navbar-nav ml-auto mobile-nav-button">
-          <li className="nav-item">
+          {/* <li className="nav-item">
             <a
               className="nav-link"
               href="https://sigwo.tech/feedback"
@@ -35,7 +36,7 @@ export default class ApplicationLayout extends React.Component {
             >
               Feedback
             </a>
-          </li>
+          </li> */}
           <li className="nav-item">
             <a
               className="nav-link mt-1"
@@ -49,127 +50,37 @@ export default class ApplicationLayout extends React.Component {
         </ul>
 
         <ul className="navbar-nav ml-auto desktop-nav">
-          {/* <li className="nav-item">
-            <a className="nav-link">
-              <span>
-                Hello, {this.state.user_exists ? this.state.user.record.alias : 'Alias'}
-              </span>
-            </a>
-          </li> */}
-          <li className="nav-item">
-            <a className="nav-link" href="/account" data-toggle="tooltip" 
-            title={this.state.user_exists ? this.state.user.record.alias : 'Alias'}>
-              {/* <span>
-                Hello, {this.state.user_exists ? this.state.user.record.alias : 'Alias'}
-              </span> */}
-                {' '}
-                {/* <span>Profile |</span> */}
-                <i className="fas fa-fw fa-user" /> 
-            </a>
-          </li>
-          <li className="nav-item">
+				<li className="nav-item">
             <a className="nav-link" href="/channels" data-toggle="tooltip" title="Chats">
-              {' '}
-              {/* <span>Chats |</span> */}
-              <i className="fas fa-fw fa-comments" /> 
+              <span>Chats</span>
+            </a>
+          </li>
+					<li className="nav-item">
+            <a className="nav-link" href="/invites" data-toggle="tooltip" title="Invites">
+              <span>Invites</span>
             </a>
           </li>
           <li className="nav-item">
-            <a className="nav-link" href="/invites" data-toggle="tooltip" title="Invites">
-              {' '}
-              {/* <span>Invites |</span> */}
-              <i className="fas fa-fw fa-envelope" /> 
+            <a className="nav-link" href="/account" data-toggle="tooltip"
+            	title={this.state.user_exists ? this.state.user.record.alias : ''}>
+							<span>Profile</span>
             </a>
           </li>
           <li className="nav-item">
             <a className="nav-link" href="/security" data-toggle="tooltip" title="Security">
-                {' '}
-                {/* <span>Security</span> */}
-                <i className="fas fa-fw fa-lock" /> 
+							<span>Security</span>
             </a>
           </li>
           <li className="nav-item">
             <a className="nav-link" href="#" data-toggle="modal" data-target="#logoutModal">
-                {' '}
-                {/* <span>Log Out</span> */}
-                <i className="fas fa-fw fa-sign-out-alt" data-toggle="tooltip" title="Logout"/> 
-              </a>
+							<span>Log Out</span>
+						</a>
           </li>
-          <li className="nav-item">
+					{/* TODO: Put this in the footer */}
+          {/* <li className="nav-item">
             <a className="nav-link" href="https://sigwo.tech/feedback" target="_blank" data-toggle="tooltip" title="Feedback">
-              {/* Feedback | */}
               <i className="fas fa-fw fa-lightbulb" />
             </a>
-          </li>
-          {/* <li className="nav-item dropdown">
-            <a
-              className="nav-link dropdown-toggle"
-              href="#"
-              id="alertsDropdown"
-              role="button"
-              data-toggle="dropdown"
-              aria-haspopup="true"
-              aria-expanded="false"
-            >
-            <i className="fas fa-fw fa-cog fa-lg"></i>
-            </a> */}
-            {/* Redo top bar here */}
-            {/* <div className="dropdown-menu" aria-labelledby="alertsDropdown">
-              <div className="dropdown-alias-card"> */}
-                {/* <span
-                  className="d-inline-block text-truncate small"
-                  style={{ maxWidth: '120px'}}
-                >
-                  Hello, {this.state.user_exists ? this.state.user.record.alias : 'Alias'}
-                </span> */}
-              {/* </div> */}
-              {/* <a className="dropdown-item" href="/account">
-                <i className="fas fa-fw fa-user" />
-                {' '}
-                <span>Profile</span>
-              </a> */}
-              {/* <a className="dropdown-item" href="/channels">
-                <i className="fas fa-fw fa-comments" />
-                {' '}
-                <span>Chats</span>
-              </a>
-              <a className="dropdown-item" href="/invites">
-                <i className="fas fa-fw fa-envelope" />
-                {' '}
-                <span>Invites</span>
-              </a> */}
-              {/* <a className="dropdown-item" href="/security">
-                <i className="fas fa-fw fa-lock" />
-                {' '}
-                <span>Security</span>
-              </a> */}
-              {/* <a
-                className="dropdown-item"
-                href="#"
-                data-toggle="modal"
-                data-target="#logoutModal"
-              >
-                <i className="fas fa-fw fa-sign-out-alt" />
-                {' '}
-                <span>Log Out</span>
-              </a> */}
-              {/* <a className="dropdown-item" href="/">
-                <i className="fas fa-fw fa-question" />
-                {' '}
-                <span>Help or FAQ</span>
-              </a> */}
-              {/* <a className="dropdown-item" href="/">
-                <i className="fas fa-fw fa-info" />
-                {' '}
-                <span>About</span>
-              </a> */}
-
-              {/* <a className="dropdown-item" href="/contacts">
-                <i className="fas fa-fw fa-id-card" />
-                {' '}
-                <span>Contacts</span>
-              </a> */}
-            {/* </div>
           </li> */}
         </ul>
       </nav>
@@ -179,32 +90,20 @@ export default class ApplicationLayout extends React.Component {
       <nav className="navbar navbar-expand navbar-custom static-top">
         <div className="container-fluid">
           <a className="navbar-brand" href="/home">
-            <span>Metis - v{gravity.version}</span>
+						<img src="/img/metis-logo-small.png" height="32px" alt="logo" />
+            <span className="ml-2">Metis</span>
           </a>
 
-          {/* <button
-            className="btn btn-link btn-sm text-white d-block d-lg-none ml-auto"
-            href="/#"
-            data-toggle="collapse"
-            data-target="#mobile-menu"
-          >
-            <i className="fas fa-fw fa-bars" />
-          </button> */}
-
-          <div className="d-none d-lg-block ml-auto">
+          <div className="ml-auto">
             <ul className="navbar-nav">
               <li className="nav-item">
-                <a className="nav-link" href="/signup">
-                  <i className="fas fa-fw fa-user-plus" />
-                  {' '}
-                  <span>Sign Up</span>
+                <a className="nav-button secondary" href="/signup">
+                  Sign Up
                 </a>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="/login">
-                  <i className="fas fa-fw fa-sign-in-alt" />
-                  {' '}
-                  <span>Log In</span>
+                <a className="nav-button" href="/login">
+                  Log In
                 </a>
               </li>
             </ul>
@@ -218,64 +117,35 @@ export default class ApplicationLayout extends React.Component {
         <div id="content-wrapper">
           <div className="collapse navbar-collapse mobile-nav" id="mobile-menu">
             <ul className="navbar-nav text-left">
-              <div className="card card-account bg-secondary">
+              {/* <div className="card card-account bg-secondary">
                 <div className="card-body">
                   <span className="h5">
                   {this.state.user_exists
                     ? `Hello, ${this.state.user.record.alias}`
                     : 'your name'}</span>
                 </div>
-              </div>
+              </div> */}
               <ul className="nav flex-column">
-                <li className="nav-item">
-                  <a className="nav-link" href="/account">
-                    <i className="fas fa-fw fa-user" />
-                    {' '}
-                    <span>Profile</span>
-                  </a>
-                </li>
-                <li className="nav-item">
+							<li className="nav-item">
                   <a className="nav-link" href="/channels">
-                    <i className="fas fa-fw fa-comments" />
-                    {' '}
                     <span>Chats</span>
                   </a>
                 </li>
                 <li className="nav-item">
                   <a className="nav-link" href="/invites">
-                    <i className="fas fa-fw fa-envelope" />
-                    {' '}
                     <span>Invites</span>
                   </a>
                 </li>
-                {/* <li className="nav-item">
-                  <a className="nav-link" href="/contacts">
-                    <i className="fas fa-fw fa-id-card" />
-                    {' '}
-                    <span>Contacts</span>
+								<li className="nav-item">
+                  <a className="nav-link" href="/account">
+                    <span>Profile</span>
                   </a>
-                </li> */}
+                </li>
                 <li className="nav-item">
                   <a className="nav-link" href="/security">
-                    <i className="fas fa-fw fa-lock" />
-                    {' '}
                     <span>Security</span>
                   </a>
                 </li>
-                {/* <li className="nav-item">
-                  <a className="nav-link" href="/">
-                    <i className="fas fa-fw fa-question" />
-                    {' '}
-                    <span>Help or FAQ</span>
-                  </a>
-                </li> */}
-                {/* <li className="nav-item">
-                  <a className="nav-link" href="/">
-                    <i className="fas fa-fw fa-info" />
-                    {' '}
-                    <span>About</span>
-                  </a>
-                </li> */}
                 <li className="nav-item">
                   <a
                     className="nav-link"
@@ -283,7 +153,6 @@ export default class ApplicationLayout extends React.Component {
                     data-toggle="modal"
                     data-target="#logoutModal"
                   >
-                    <i className="fas fa-fw fa-sign-out-alt" />
                     <span>Log Out</span>
                   </a>
                 </li>
@@ -297,69 +166,11 @@ export default class ApplicationLayout extends React.Component {
 
     const unloggedWrapper = (
       <div id="wrapper">
-        {/* <ul className="sidebar navbar-nav d-none d-lg-block">
-          <li className="nav-item">
-            <a className="nav-link" href="https://docs.sigwo.com">
-              <i className="fas fa-fw fa-file" />
-              {' '}
-              <span>Documentation</span>
-            </a>
-          </li>
-          <li className="nav-item">
-            <a
-              className="nav-link"
-              href="https://github.com/jupiter-project/gravity"
-            >
-              <i className="fab fa-fw fa-github" />
-              {' '}
-              <span>GitHub</span>
-            </a>
-          </li>
-        </ul> */}
-
-        {/* <div className="collapse navbar-collapse" id="mobile-menu">
-          <ul className="navbar-nav d-block d-lg-none text-left">
-            <ul className="nav flex-column">
-              <li className="nav-item">
-                <a className="nav-link" href="https://docs.sigwo.com">
-                  <i className="fas fa-fw fa-file" />
-                  {' '}
-                  <span>Documentation</span>
-                </a>
-              </li>
-              <li className="nav-item">
-                <a
-                  className="nav-link"
-                  href="https://github.com/jupiter-project/gravity"
-                >
-                  <i className="fab fa-fw fa-github" />
-                  {' '}
-                  <span>GitHub</span>
-                </a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link" href="/signup">
-                  <i className="fas fa-fw fa-user-plus" />
-                  {' '}
-                  <span>Sign up</span>
-                </a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link" href="/login">
-                  <i className="fas fa-fw fa-sign-in-alt" />
-                  {' '}
-                  <span>Login</span>
-                </a>
-              </li>
-            </ul>
-          </ul>
-        </div> */}
-
         <div id="content-wrapper">
           {this.props.children}
         </div>
       </div>
-    );
+		);
 
     return (
       <html>
@@ -372,6 +183,9 @@ export default class ApplicationLayout extends React.Component {
             name="viewport"
             content="width=device-width, initial-scale=1, shrink-to-fit=no"
           />
+					<meta name="description" content="Metis Messenger - Metis is a fully encrypted chatting application built on Jupiter’s blockchain. We use account features and JSON formatting to bundle and military-grade encryption to secure every single message sent using Metis. Metis uniquely uses accounts for channels and builds each user their channel list that is stored in their account." />
+
+					<link rel="dns-prefetch" href="//fonts.googleapis.com" />
 
           <link
             href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css"
@@ -396,19 +210,46 @@ export default class ApplicationLayout extends React.Component {
             href="https://fonts.googleapis.com/css?family=Lato: 300,300i,400,400i"
             rel="stylesheet"
           />
+					<link
+						href="https://fonts.googleapis.com/css?family=Poppins:100,100italic,200,200italic,300,300italic,regular,italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic&amp;subset=latin,latin-ext&amp;display=swap"
+						rel="stylesheet"
+						type="text/css"
+						media="all"
+					/>
 
           <link href="/css/sb-admin.css" rel="stylesheet" />
         </head>
         <body className="p-0">
           <span id="toastrMessages" />
           <div
-            id={this.props.data.dashboard === true ? 'logged-in' : 'logged-out'}
+						id={this.props.data.dashboard === true ? 'logged-in' : 'logged-out'}
+						className="application-wrapper"
           >
             {this.props.data.dashboard === true ? loggedHeader : unloggedHeader}
 
             {this.props.data.dashboard === true
               ? loggedWrapper
               : unloggedWrapper}
+
+						{/* {this.props.includeFooter &&
+							<footer className="footer">
+								<div className="container-fluid my-auto">
+									<div className="copyright text-center my-auto">
+										{process.env.APPNAME ? (
+											<div>
+												<div>Copyright © 2018 YourBrand</div>
+												<div className="mt-2 small">powered by Gravity</div>
+											</div>
+										) : (
+											<div>
+												<div>Copyright © 2018 Sigwo Technologies</div>
+												<div className="mt-2 small">powered by Gravity</div>
+											</div>
+										)}
+									</div>
+								</div>
+							</footer>
+						} */}
           </div>
 
           <div
@@ -435,7 +276,7 @@ export default class ApplicationLayout extends React.Component {
                   </button>
                 </div>
                 <div className="modal-body">
-                  Click on “Log Out” if you are ready to end your current session.
+                  Click on 'Log Out' if you are ready to end your current session.
                 </div>
                 <div className="modal-footer">
                   <button

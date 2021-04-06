@@ -350,7 +350,7 @@ export class SignupForm extends React.Component {
             onChange={this.handleChange.bind(this, 'alias')}
             className="form-control"
           />
-          <div className={`alert ${state.aliasIsAvailable ? 'alert-success' : 'alert-danger'}`}>
+          <div className={`mt-3 alert ${state.aliasIsAvailable ? 'alert-success' : 'alert-danger'}`}>
             <i className={ `far ${state.aliasIsAvailable ? 'fa-check-circle' : 'fa-times-circle'}`} />
             <span>{state.aliasIsAvailable ? ' Alias available' : ' Invalid alias'}</span>
           </div>
@@ -475,7 +475,7 @@ export class SignupForm extends React.Component {
           generatedAccount
         ) : (
           <div>
-            <div className="form-group text-justify">
+            <div className="form-group text-left">
               This app is based on blockchain technology. The
               blockchain will generate an account for you with
               a secure passphrase. This 12-word passphrase
@@ -483,16 +483,13 @@ export class SignupForm extends React.Component {
               safe place. If you lose your passphrase, you will permanently lose
               access to your account, there is no way to recover it.
             </div>
-            <div className="form-group text-justify">
-              Proceed with CAUTION! This is a test release. You may lose data. 
-              Encryption of data doesn’t prevent copy and paste or screen shots of the 
-              conversation. The Jupiter Project or Sigwo Technologies LLC are 
-              not responsible for any loss of data. Use at your own risk.
+            <div className="form-group text-left">
+              Proceed with CAUTION! This is a test release. You may lose data.
+              Encryption of data doesn’t prevent copy and paste or screen shots of the
+              conversation. The Jupiter Project or Sigwo Technologies LLC are
+              not responsible for any loss of data. Please use at your own risk.
             </div>
-            <div className="form-group text-center">
-              Click on the button below to start.
-            </div>
-            <div className="form-group text-center">
+            <div className="form-group text-center d-inline-block mx-auto w-100 mt-4">
               <button
                 className="btn btn-custom"
                 onClick={this.generatePassphrase.bind(this)}

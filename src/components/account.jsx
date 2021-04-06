@@ -73,7 +73,6 @@ class AccountComponent extends React.Component {
     }
   }
 
-
   updateAccountInfo(event) {
     event.preventDefault();
     const page = this;
@@ -104,23 +103,24 @@ class AccountComponent extends React.Component {
             submitted: false,
           });
           // toastr.success('It will take a few minutes for the changes to reflect in your end');
-          toastr.success('Account update pushed to the blockchain for approval.');
+          toastr.success('Account updates pushed to the blockchain for approval.');
         } else {
           if (
             response.data.validations != null
             && response.data.validations.messages != null
           ) {
-            response.data.validations.messages.map((message) => {
-              toastr.error(message);
-              return null;
-            });
+            response.data.validations.messages
+              .forEach((message) => {
+                toastr.error(message);
+              });
+          } else {
+            toastr.error(response.data.message);
           }
-          toastr.error(response.data.message);
         }
       })
       .catch((error) => {
         console.log(error);
-        toastr.error('There was an error');
+        toastr.error('There was an error updating your account info.');
       });
   }
 
@@ -136,7 +136,7 @@ class AccountComponent extends React.Component {
           {this.state.account_editing_mode === true ? (
             <form className="card-body">
               <h6 className="text-center">Account ID</h6>
-              <div className="col-xs-12 col-sm-8 mx-auto alert alert-primary text-center">
+              <div className="col-xs-12 col-sm-8 mx-auto alert alert-secondary text-center">
                 <span>{this.state.user ? this.props.user.record.account : 'account id'}</span>
               </div>
               <div className="form-group">
@@ -148,8 +148,8 @@ class AccountComponent extends React.Component {
                   className="form-control"
                   id="inputAliasAddress"
                 />
-                <div className={`alert ${state.aliasIsAvailable ? 'alert-success' : 'alert-danger'}`}>
-                  <i className={ `far ${state.aliasIsAvailable ? 'fa-check-circle' : 'fa-times-circle'}`} />
+                <div className={`mt-3 alert ${state.aliasIsAvailable ? 'alert-success' : 'alert-danger'}`}>
+                  <i className={`far ${state.aliasIsAvailable ? 'fa-check-circle' : 'fa-times-circle'}`} />
                   <span>{state.aliasIsAvailable ? ' Alias available' : ' Invalid alias'}</span>
                 </div>
               </div>
@@ -211,7 +211,7 @@ class AccountComponent extends React.Component {
           ) : (
             <form className="card-body">
               <h6 className="text-center">Account ID</h6>
-              <div className="col-xs-12 col-sm-8 mx-auto alert alert-primary text-center">
+              <div className="col-xs-12 col-sm-8 mx-auto alert alert-secondary text-center">
                 <span>{this.state.user ? this.props.user.record.account : 'account id'}</span>
               </div>
               <div className="form-group">

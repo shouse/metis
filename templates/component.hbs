@@ -23,15 +23,15 @@ const {{component_name}}Export = () => {
   if (document.getElementById('{{component_name}}Component') != null) {
     const element = document.getElementById('props');
     const props = JSON.parse(element.getAttribute('data-props'));
-    
+
     render(
       <{{component_name}}Component
       user={props.user}
       validation={props.validation}
-      />, 
+      />,
       document.getElementById('{{component_name}}Component'),
     );
-  } 
+  }
 };
 
 module.exports= {{component_name}}Export();

@@ -32,13 +32,18 @@
   .card-body {
     padding: 5%;
     text-align: center;
-    background-color: #26313d;
+    background-color: #3e3e3e;
     border-radius: .25em;
   }
 }
 
 .card-plain {
   border: none;
-  background-color: #26313d;
+  background-color: #3e3e3e;
   border-radius: .25em;
+}
+
+.card-message-incoming {
+	background-color: #efefef;
+	color: $black;
 }

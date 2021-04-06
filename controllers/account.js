@@ -265,7 +265,7 @@ module.exports = (app, passport, React, ReactDOMServer) => {
     const user = new User(data, req.session.passport.user);
 
     if (twofaEnabled) {
-      req.flash('loginMessage', 'Begining 2FA');
+      req.flash('loginMessage', 'Enabling 2FA...');
       req.session.twofa_enabled = true;
       req.session.twofa_completed = false;
       user.record.twofa_enabled = true;
